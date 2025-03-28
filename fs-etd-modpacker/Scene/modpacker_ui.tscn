@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3gv7tv2qbe50"]
+
+[ext_resource type="Script" uid="uid://dp78mtl4r7mx0" path="res://addons/fs-etd-modpacker/Scene/modpacker_ui.gd" id="1_a480y"]
+
+[node name="ModpackerUi" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -390.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a480y")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "FS:ETD ModPacker"
+horizontal_alignment = 1
+
+[node name="ModName_LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+text = "My Mod"
+placeholder_text = "Mod Name"
+
+[node name="ModAuthor_LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+text = "New User"
+placeholder_text = "Author"
+
+[node name="ModAuthorLink_LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+text = "https://docs.godotengine.org/en"
+placeholder_text = "Author Website"
+
+[node name="ModVersion_LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+text = "1.0"
+placeholder_text = "Mod Version"
+
+[node name="GameVersion_LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+text = "0.0.1dev"
+placeholder_text = "Game Version"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="BrowseDirLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Default: Mod folder"
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="BrowseDirButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "select export directory"
+
+[node name="ExportButton" type="Button" parent="."]
+layout_mode = 2
+text = "Export as PCK"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+position = Vector2i(0, 36)
+exclusive = false
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+show_hidden_files = true
+use_native_dialog = true
+
+[connection signal="pressed" from="HBoxContainer/BrowseDirButton" to="." method="_on_browse_dir_button_pressed"]
+[connection signal="pressed" from="ExportButton" to="." method="_on_export_button_pressed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
