@@ -24,6 +24,9 @@ func _on_export_button_pressed() -> void:
 	var mod_author_link = mod_author_link_line_edit.text
 	var mod_version = mod_version_line_edit.text
 	var game_version = game_version_line_edit.text
+	
+	write_config(mod_name,mod_author,mod_author_link,mod_version,game_version)
+	
 	if mod_export_dir == "":
 		print("Error: Mod directory not found")
 	if mod_name == "" or mod_author == "" or mod_version == "" or game_version == "":
@@ -39,6 +42,15 @@ func _on_export_button_pressed() -> void:
 		dir_contents_recursive(new_pck,"res://mod/")
 		new_pck.flush(true)
 		print(mod_file_path+".pck")
+
+func write_config(mod_name,mod_author,mod_author_link,mod_version,game_version):
+	var config_file = ConfigFile.new()
+	config_file.set_value("Mod_Config","ModName",mod_name)
+	config_file.set_value("Mod_Config","ModAuthor",mod_author)
+	config_file.set_value("Mod_Config","ModAuthorLink",mod_author_link)
+	config_file.set_value("Mod_Config","ModVersion",mod_version)
+	config_file.set_value("Game_Config","GameVersion",game_version)
+	config_file.save("res://mod/Mod_Config.config")
 
 func dir_contents_recursive(new_pck:PCKPacker,path):
 	var dir = DirAccess.open(path)
