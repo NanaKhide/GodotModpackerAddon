@@ -6,6 +6,7 @@ This is an Addon for Godot that allows you to pack a scene into a .pck file. I w
 Download the folder and drop it into your Godot project under res://addons, then enable the addon in your project settings.
 This should open a new dock that allows you to specify data for the packer.
 This data does not do anything yet besides generating the name for the new PCK file.
+- All data that should be stored in the Mod PCK file needs to be withing the res://mod directory
 
 # Future changes:
 - I will make this addon more generic so it is not specific for my project

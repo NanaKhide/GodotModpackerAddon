@@ -8,6 +8,7 @@ extends VBoxContainer
 @onready var mod_author_link_line_edit: LineEdit = $ModAuthorLink_LineEdit
 @onready var mod_version_line_edit: LineEdit = $ModVersion_LineEdit
 @onready var game_version_line_edit: LineEdit = $GameVersion_LineEdit
+
 var mod_export_dir:String
 
 func _on_browse_dir_button_pressed() -> void:
@@ -24,18 +25,20 @@ func _on_export_button_pressed() -> void:
 	var mod_version = mod_version_line_edit.text
 	var game_version = game_version_line_edit.text
 	if mod_export_dir == "":
-		mod_export_dir = ProjectSettings.globalize_path(DlcManager.mod_path)
+		print("Error: Mod directory not found")
 	if mod_name == "" or mod_author == "" or mod_version == "" or game_version == "":
 		print("Error all fields except link must be filled")
 	else:
 		var mod_file_name = str(mod_name + mod_version).to_lower()
 		mod_file_name = mod_file_name.replace(' ',"_")
 		mod_file_name = mod_file_name.validate_filename()
-		var mod_file_path = mod_export_dir+mod_file_name
+		var export_dir = mod_export_dir
+		var mod_file_path = export_dir+mod_file_name
 		var new_pck = PCKPacker.new()
 		new_pck.pck_start(mod_file_path+".pck")
-		dir_contents_recursive(new_pck,"res://mod")
+		dir_contents_recursive(new_pck,"res://mod/")
 		new_pck.flush(true)
+		print(mod_file_path+".pck")
 
 func dir_contents_recursive(new_pck:PCKPacker,path):
 	var dir = DirAccess.open(path)
@@ -44,16 +47,13 @@ func dir_contents_recursive(new_pck:PCKPacker,path):
 		var file_name = dir.get_next()
 		while file_name != "":
 			var filePath = path+"/"+file_name
-			
 			if dir.current_is_dir():
 				print("Found directory: " + filePath)
 				dir_contents_recursive(new_pck,filePath)
 			else:
 				print("Found file: " + filePath)
-				new_pck.add_file(parse_mod_paths(filePath),filePath,false)
+				new_pck.add_file(filePath,filePath,false)
 			file_name = dir.get_next()
+		print("Found all files in the directory")
 	else:
 		print("An error occurred when trying to access the path.")
-
-func parse_mod_paths(taget_path:String):
-	return taget_path.replace("mod/","")

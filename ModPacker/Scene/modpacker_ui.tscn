@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d3gv7tv2qbe50"]
 
-[ext_resource type="Script" uid="uid://dp78mtl4r7mx0" path="res://addons/fs-etd-modpacker/Scene/modpacker_ui.gd" id="1_a480y"]
+[ext_resource type="Script" uid="uid://dp78mtl4r7mx0" path="res://addons/ModPacker/Scene/modpacker_ui.gd" id="1_a480y"]
 
 [node name="ModpackerUi" type="VBoxContainer"]
 anchors_preset = 15

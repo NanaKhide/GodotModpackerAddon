@@ -1,11 +1,11 @@
 @tool
 extends EditorPlugin
 
-const PluginUI = preload("res://addons/fs-etd-modpacker/Scene/modpacker_ui.tscn")
+const MODPACKER_UI = preload("res://addons/ModPacker/Scene/modpacker_ui.tscn")
 var ui_instance
 
 func _enter_tree() -> void:
-	ui_instance = PluginUI.instantiate()
+	ui_instance = MODPACKER_UI.instantiate()
 	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BL,ui_instance)
 
 
