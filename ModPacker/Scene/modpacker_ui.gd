@@ -35,11 +35,10 @@ func _on_export_button_pressed() -> void:
 		var mod_file_name = str(mod_name + mod_version).to_lower()
 		mod_file_name = mod_file_name.replace(' ',"_")
 		mod_file_name = mod_file_name.validate_filename()
-		var export_dir = mod_export_dir
-		var mod_file_path = export_dir+mod_file_name
+		var mod_file_path = mod_export_dir+"/"+mod_file_name
 		var new_pck = PCKPacker.new()
 		new_pck.pck_start(mod_file_path+".pck")
-		dir_contents_recursive(new_pck,"res://mod/")
+		dir_contents_recursive(new_pck,"res://mod")
 		new_pck.flush(true)
 		print(mod_file_path+".pck")
 
@@ -66,6 +65,6 @@ func dir_contents_recursive(new_pck:PCKPacker,path):
 				print("Found file: " + filePath)
 				new_pck.add_file(filePath,filePath,false)
 			file_name = dir.get_next()
-		print("Found all files in the directory")
+		print("Found all files in the directory", path)
 	else:
 		print("An error occurred when trying to access the path.")
